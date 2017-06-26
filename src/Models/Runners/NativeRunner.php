@@ -98,6 +98,8 @@ class NativeRunner implements RequestRunner
 
     private function _connectAndGetNoSSL(PreparedRequest $req) {
 
+        $this->debugLog .= "\n> Starting Connection to ".$req->getHost();
+
         $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
         if ($sock === false)
@@ -109,6 +111,8 @@ class NativeRunner implements RequestRunner
                 .$this->address." at this port ".$this->port. ""
                 ." possible reason: " .socket_strerror(socket_last_error($sock)), 403);
 
+        $this->debugLog .= "\n> Successfully connected to: " . $req->getHost() . " at port: " . $req->getPort();
+
         /*
          *  Flush header data to server
          * -----------------------------
@@ -116,12 +120,15 @@ class NativeRunner implements RequestRunner
         $data = $req->createAndGetRequestData();
         socket_write($sock, $data, mb_strlen($data));
 
+        $this->debugLog .= "\n> Wrote header data:\n" . $data;
+
         /*
          *  Flush payload data to server
          * ------------------------------
          */
         if($payload = $req->getRequestPayload()) {
             socket_write($sock, $payload, mb_strlen($payload));
+            $this->debugLog .= "\n> Wrote payload data:\n" . $payload;
         }
 
         $response = "";
@@ -131,6 +138,8 @@ class NativeRunner implements RequestRunner
             $response .= $r;
 
         }
+
+        $this->debugLog .= "\n> Read incoming data:\n" . $response;
 
         socket_close($sock);
 

@@ -180,10 +180,12 @@ class Configuration
 
     /**
      * @param string $defaultEmail
+     * @return  $this
      */
     public function setDefaultEmail($defaultEmail)
     {
         $this->defaultEmail = $defaultEmail;
+        return $this;
     }
 
     /**
@@ -196,10 +198,12 @@ class Configuration
 
     /**
      * @param string $defaultCountry
+     * @return  $this
      */
     public function setDefaultCountry($defaultCountry)
     {
         $this->defaultCountry = $defaultCountry;
+        return $this;
     }
 
     /**
@@ -212,10 +216,12 @@ class Configuration
 
     /**
      * @param string $defaultState
+     * @return  $this
      */
     public function setDefaultState($defaultState)
     {
         $this->defaultState = $defaultState;
+        return $this;
     }
 
     /**
@@ -228,10 +234,12 @@ class Configuration
 
     /**
      * @param string $defaultLocality
+     * @return  $this
      */
     public function setDefaultLocality($defaultLocality)
     {
         $this->defaultLocality = $defaultLocality;
+        return $this;
     }
 
 }
