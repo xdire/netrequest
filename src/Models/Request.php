@@ -155,6 +155,8 @@ abstract class Request
 
         $parsedRequest = new PreparedRequest($this->url, $this->method, $this->headers, $this->payload);
 
+        $parsedRequest->setConfigurationName($this->configurationName);
+        
         if($this->debugMode)
             $parsedRequest->setDebugMode(true);
 
